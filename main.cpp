@@ -7,14 +7,15 @@
 #include "BinarySearch.h"
 #include "TreeSort.h"
 #include "Node.h"
+#include "Heap.h"
 
 using namespace sorting;
 
 static const bool BUBBLE_SORT = false;
 static const bool TREE_SORT = false;
 static const bool BINARY_SEARCH = false;
-static const bool NODE_TREE = true;
-
+static const bool NODE_TREE = false;
+static const bool HEAP_SORT = false;
 
 template<typename V>
 void printArray(const V& v)
@@ -98,9 +99,33 @@ int main() {
         root->printPostorder(root);
         std::cout << std::endl;
 
+        // TODO: delete certain node
+
         std::cout << "Deleting Node: ";
         root->deleteTree(root);
         std::cout << std::endl;
+
+    }
+
+    if (HEAP_SORT)
+    {
+        std::vector<int> v = *(RandomGenerator<int>()(10));
+        std::cout << "Initial array for heap sort: " << std::endl;
+        printArray(v);
+
+        Heap hp;
+        std::for_each (v.begin(), v.end(), [&](const auto& i)
+        {
+            hp.push(i);
+        });
+        std::for_each (v.begin(), v.end(), [&](auto& i)
+        {
+            i = hp.top();
+            hp.pop();
+        });
+
+        std::cout << "Sorted array by heap sort: " << std::endl;
+        printArray(v);
 
     }
     std::cout << "Hello World!" << std::endl;
