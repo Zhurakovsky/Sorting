@@ -6,8 +6,15 @@
 #include "BubbleSort.h"
 #include "BinarySearch.h"
 #include "TreeSort.h"
+#include "Node.h"
 
 using namespace sorting;
+
+static const bool BUBBLE_SORT = false;
+static const bool TREE_SORT = false;
+static const bool BINARY_SEARCH = false;
+static const bool NODE_TREE = true;
+
 
 template<typename V>
 void printArray(const V& v)
@@ -20,49 +27,83 @@ void printArray(const V& v)
 }
 
 int main() {
-    std::vector<int> v = *(RandomGenerator<int>()(10));
-    std::cout << "Initial array: " << std::endl;
-    printArray(v);
+    if (BUBBLE_SORT)
+    {
+        std::vector<int> v = *(RandomGenerator<int>()(10));
+        std::cout << "Initial array: " << std::endl;
+        printArray(v);
 
-    // Bubble sort with templates
-    BubbleSort<int> bs;
-    bs.Sort(v.begin(), v.end());
-    printArray(v);
+        // Bubble sort with templates
+        BubbleSort<int> bs;
+        bs.Sort(v.begin(), v.end());
+        printArray(v);
 
-    v = *(RandomGenerator<int>()(10));
-    std::cout << "Array 2: " << std::endl;
-    printArray(v);
+        v = *(RandomGenerator<int>()(10));
+        std::cout << "Array 2: " << std::endl;
+        printArray(v);
 
-    // Bubble sort without templates
-    bs.Sort(&v[0], v.size());
-    printArray(v);
+        // Bubble sort without templates
+        bs.Sort(&v[0], v.size());
+        printArray(v);
+    } // if (BUBBLE_SORT)
 
-    v = *(RandomGenerator<int>()(10));
-    std::cout << "Array 3: " << std::endl;
-    printArray(v);
+    if (TREE_SORT)
+    {
+        std::vector<int> v = *(RandomGenerator<int>()(10));
+        std::cout << "Array 3: " << std::endl;
+        printArray(v);
 
-    // Tree sort section
-    TreeSort ts;
-    ts.Sort(v);
-    std::cout << "Array sorted with Tree Sort: " << std::endl;
-    printArray(v);
+        // Tree sort section
+        TreeSort ts;
+        ts.Sort(v);
+        std::cout << "Array sorted with Tree Sort: " << std::endl;
+        printArray(v);
+    } // if (TREE_SORT)
 
+    if (BINARY_SEARCH)
+    {
+        // Binary search section
+        std::vector<int> data_vector{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+        std::cout << "Array For Binary search: " << std::endl;
+        printArray(data_vector);
+        std::cout << "Sort arr Array For Binary search: " << std::endl;
 
-    // Binary search section
-    std::vector<int>data_vector{1,2,3,4,5,6,7,8,9,0};
-    std::cout << "Array For Binary search: " << std::endl;
-    printArray(data_vector);
-    std::cout << "Sort arr Array For Binary search: " << std::endl;
-    bs.Sort(data_vector.begin(), data_vector.end());
-    printArray(data_vector);
+        BubbleSort<int> bs;
+        bs.Sort(data_vector.begin(), data_vector.end());
+        printArray(data_vector);
 
-    BinarySearch bin_searcher;
-    int try1 = 3;
-    int try2 = 12;
-    std::cout << "Element " << try1 << ((bin_searcher.binarySearch(data_vector, try1) == data_vector.cend()) ? " NOT FOUND" : " FOUND" )<< std::endl;
-    std::cout << "Element " << try2 << ((bin_searcher.binarySearch(data_vector, try2) == data_vector.cend()) ? " NOT FOUND" : " FOUND" )<< std::endl;
+        BinarySearch bin_searcher;
+        int try1 = 3;
+        int try2 = 12;
+        std::cout << "Element " << try1
+                  << ((bin_searcher.binarySearch(data_vector, try1) == data_vector.cend()) ? " NOT FOUND" : " FOUND")
+                  << std::endl;
+        std::cout << "Element " << try2
+                  << ((bin_searcher.binarySearch(data_vector, try2) == data_vector.cend()) ? " NOT FOUND" : " FOUND")
+                  << std::endl;
+    } // if (BINARY_SEARCH)
 
+    if (NODE_TREE)
+    {
+        Node* root = new Node(3);
+        root->insert(root, 1);
+        root->insert(root, 2);
+        root->insert(root, 4);
+        root->insert(root, 5);
 
+        root->printInorder(root);
+        std::cout << std::endl;
+        root->printPreorder(root);
+        std::cout << std::endl;
+        root->printPostorder(root);
+        std::cout << std::endl;
+
+        std::cout << "Deleting Node: ";
+        root->deleteTree(root);
+        std::cout << std::endl;
+
+    }
+    std::cout << "Hello World!" << std::endl;
     return 0;
 }
 

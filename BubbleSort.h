@@ -5,8 +5,6 @@
 #ifndef SORTING_BUBBLESORT_H
 #define SORTING_BUBBLESORT_H
 
-
-
 namespace sorting
 {
 template<typename T>
@@ -25,8 +23,6 @@ public:
                 }
             }
         }
-        //std::cout << "Bubble Sort Complete" << std::endl;
-        //return res;
     }
 
     void Sort(int* arr, int n)
@@ -43,11 +39,7 @@ public:
                 }
             }
         }
-        //std::cout << "Bubble Sort No Template Complete" << std::endl;
     }
-
-
-
 };
 
 } // namespace
