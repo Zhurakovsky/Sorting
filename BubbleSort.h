@@ -25,7 +25,7 @@ public:
                 }
             }
         }
-        std::cout << "Bubble Sort Complete" << std::endl;
+        //std::cout << "Bubble Sort Complete" << std::endl;
         //return res;
     }
 
@@ -43,7 +43,7 @@ public:
                 }
             }
         }
-        std::cout << "Bubble Sort No Template Complete" << std::endl;
+        //std::cout << "Bubble Sort No Template Complete" << std::endl;
     }
 
 

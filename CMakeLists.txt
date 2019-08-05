@@ -3,4 +3,4 @@ project(Sorting)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Sorting main.cpp BubbleSort.cpp BubbleSort.h RandomGenerator.h BinarySearch.h)
+add_executable(Sorting main.cpp BubbleSort.cpp BubbleSort.h RandomGenerator.h BinarySearch.h TreeSort.h)

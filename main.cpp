@@ -1,10 +1,11 @@
 #include <iostream>
 #include <random>
+#include <iterator>
 
-//#include "Sorting.h"
-#include "BubbleSort.h"
 #include "RandomGenerator.h"
+#include "BubbleSort.h"
 #include "BinarySearch.h"
+#include "TreeSort.h"
 
 using namespace sorting;
 
@@ -23,6 +24,7 @@ int main() {
     std::cout << "Initial array: " << std::endl;
     printArray(v);
 
+    // Bubble sort with templates
     BubbleSort<int> bs;
     bs.Sort(v.begin(), v.end());
     printArray(v);
@@ -30,10 +32,23 @@ int main() {
     v = *(RandomGenerator<int>()(10));
     std::cout << "Array 2: " << std::endl;
     printArray(v);
+
+    // Bubble sort without templates
     bs.Sort(&v[0], v.size());
     printArray(v);
 
-    //v = *(RandomGenerator<int>()(10));
+    v = *(RandomGenerator<int>()(10));
+    std::cout << "Array 3: " << std::endl;
+    printArray(v);
+
+    // Tree sort section
+    TreeSort ts;
+    ts.Sort(v);
+    std::cout << "Array sorted with Tree Sort: " << std::endl;
+    printArray(v);
+
+
+    // Binary search section
     std::vector<int>data_vector{1,2,3,4,5,6,7,8,9,0};
     std::cout << "Array For Binary search: " << std::endl;
     printArray(data_vector);
@@ -48,8 +63,6 @@ int main() {
     std::cout << "Element " << try2 << ((bin_searcher.binarySearch(data_vector, try2) == data_vector.cend()) ? " NOT FOUND" : " FOUND" )<< std::endl;
 
 
-
-    //std::cout << "Hello, World!" << std::endl;
     return 0;
 }
 
