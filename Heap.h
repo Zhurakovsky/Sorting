@@ -28,9 +28,9 @@ public:
         return n == 0;
     }
 
-    void push(int v)
+    void push(int a)
     {
-        hp.emplace_back(v);
+        hp.emplace_back(a);
         SiftUp(n);
         n++;
     }
@@ -49,9 +49,9 @@ public:
         n = 0;
     }
 
-    int operator[] (int v)
+    int operator[] (int a)
     {
-        return hp[v];
+        return hp[a];
     }
 
 
@@ -59,47 +59,47 @@ private:
     std::vector<int>hp{};
     int n{0};
 
-    void SiftUp(int v)
+    void SiftUp(int a)
     {
-        while (v)
+        while (a)
         {
-            if (hp[(v - 1) / 2] <= hp[v])
+            if (hp[(a - 1) / 2] <= hp[a])
             {
                 return;
             }
-            std::swap(hp[(v - 1) / 2], hp[v]);
-            //v -= 1;
-            --v /= 2;
+            std::swap(hp[(a - 1) / 2], hp[a]);
+
+            --a /= 2;
         }
     }
 
-    void SiftDown(int v)
+    void SiftDown(int a)
     {
-        while( 2 * v + 1 < n)
+        while( 2 * a + 1 < n)
         {
-            int left = 2 * v + 1;
-            int right = 2 * v + 2;
+            int left = 2 * a + 1;
+            int right = 2 * a + 2;
             if (right == n)
             {
-                if (hp[left] < hp[v])
+                if (hp[left] < hp[a])
                 {
-                    std::swap(hp[left], hp[v]);
+                    std::swap(hp[left], hp[a]);
                 }
                 return;
             }
             else if (hp[left] <= hp[right])
             {
-                if (hp[left] > hp[v])
+                if (hp[left] > hp[a])
                 {
                     return;
                 }
-                std::swap(hp[left], hp[v]);
-                v = left;
+                std::swap(hp[left], hp[a]);
+                a = left;
             }
-            else if (hp[right] < hp[v])
+            else if (hp[right] < hp[a])
             {
-                std::swap(hp[right], hp[v]);
-                v = right;
+                std::swap(hp[right], hp[a]);
+                a = right;
             }
             else
             {

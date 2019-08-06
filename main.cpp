@@ -8,6 +8,7 @@
 #include "TreeSort.h"
 #include "Node.h"
 #include "Heap.h"
+#include "QuickSort.h"
 
 using namespace sorting;
 
@@ -16,6 +17,7 @@ static const bool TREE_SORT = false;
 static const bool BINARY_SEARCH = false;
 static const bool NODE_TREE = false;
 static const bool HEAP_SORT = false;
+static const bool QUICK_SORT = true;
 
 template<typename V>
 void printArray(const V& v)
@@ -92,6 +94,7 @@ int main() {
         root->insert(root, 4);
         root->insert(root, 5);
 
+        // Depth First Traversals:
         root->printInorder(root);
         std::cout << std::endl;
         root->printPreorder(root);
@@ -100,6 +103,8 @@ int main() {
         std::cout << std::endl;
 
         // TODO: delete certain node
+
+        //
 
         std::cout << "Deleting Node: ";
         root->deleteTree(root);
@@ -127,6 +132,19 @@ int main() {
         std::cout << "Sorted array by heap sort: " << std::endl;
         printArray(v);
 
+    }
+
+    if (QUICK_SORT)
+    {
+        std::vector<int> v = *(RandomGenerator<int>()(10));
+        std::cout << "Initial array for quick sort: " << std::endl;
+        printArray(v);
+
+        QuickSort qs;
+        qs.Sort(v.begin(), v.end());
+
+        std::cout << "Array sorted by quick sort: " << std::endl;
+        printArray(v);
     }
     std::cout << "Hello World!" << std::endl;
     return 0;
