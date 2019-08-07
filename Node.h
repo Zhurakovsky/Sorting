@@ -86,21 +86,66 @@ public:
         std::cout << node->data << " ";
     }
 
-    void deleteTree(Node* node)
+    Node * deleteTree(Node* node)
     {
         if (!node)
         {
-            return;
+            return nullptr;
         }
 
-        deleteTree(node->left);
-        deleteTree(node->right);
+        node->left = deleteTree(node->left);
+        node->right = deleteTree(node->right);
         std::cout << node->data << " ";
         node = nullptr;
         delete node;
+        return nullptr;
+    }
+
+    Node* deleteCertain(Node* node, int key)
+    {
+        if (!node) return nullptr;
+        if (!node->left && !node->right)
+        {
+            if (node->data == key)
+            {
+                std::cout << "Found and delete Node " << key << "." << std::endl;
+                return nullptr;
+            }
+            else
+            {
+                std::cout << "Node " << key << " not found." << std::endl;
+                return node;
+            }
+        }
+        if (key < node->data)
+        {
+            std::cout << "Looking left." << std::endl;
+            node->left = deleteCertain(node->left, key);
+
+        }
+        else if (key > node->data)
+        {
+            std::cout << "Looking right." << std::endl;
+            node->right = deleteCertain(node->right, key);
+        }
+        else if(key == node->data)
+        {
+            if (node->left)
+            {
+                std::cout << "Swapping left." << std::endl;
+                std::swap(node->left, node);
+                node->left = deleteCertain(node->left, key);
+            }
+            else if (node->right)
+            {
+                std::cout << "Swapping right." << std::endl;
+                std::swap(node->right, node);
+                node->right = deleteCertain(node->right, key);
+            }
+        }
+        return node;
     }
 };
-
 
 }
 #endif //SORTING_NODE_H

@@ -17,7 +17,7 @@ static const bool TREE_SORT = false;
 static const bool BINARY_SEARCH = false;
 static const bool NODE_TREE = false;
 static const bool HEAP_SORT = false;
-static const bool QUICK_SORT = true;
+static const bool QUICK_SORT = false;
 
 template<typename V>
 void printArray(const V& v)
@@ -95,21 +95,38 @@ int main() {
         root->insert(root, 5);
 
         // Depth First Traversals:
-        root->printInorder(root);
+        root->printInorder(root); // 1 2 3 4 5
         std::cout << std::endl;
-        root->printPreorder(root);
+        root->printPreorder(root); // 3 1 2 4 5
         std::cout << std::endl;
-        root->printPostorder(root);
+        root->printPostorder(root); // 2 1 5 4 3
         std::cout << std::endl;
 
         // TODO: delete certain node
+        std::cout << "Try to delete Node 42:" << std::endl;
+        root = root->deleteCertain(root, 42); // Node 42 not found.
 
-        //
-
-        std::cout << "Deleting Node: ";
-        root->deleteTree(root);
+        // Depth First Traversals:
+        std::cout << "Control traversal: ";
+        root->printInorder(root); //
         std::cout << std::endl;
 
+        std::cout << "Try to delete Node 2:" << std::endl;
+        root = root->deleteCertain(root, 2); // Deleting node 2.
+
+        // Depth First Traversals:
+        std::cout << "Control traversal after Deleting Node: ";
+        root->printInorder(root); // 1 2 3 4 5
+        std::cout << std::endl;
+
+        std::cout << "Deleting Tree: ";
+        root = root->deleteTree(root);
+        std::cout << std::endl;
+
+        // Depth First Traversals:
+        std::cout << "Control traversal: ";
+        root->printInorder(root); //
+        std::cout << std::endl;
     }
 
     if (HEAP_SORT)
