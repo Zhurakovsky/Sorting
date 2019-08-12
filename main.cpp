@@ -9,6 +9,7 @@
 #include "Node.h"
 #include "Heap.h"
 #include "QuickSort.h"
+#include "Routes.h"
 
 using namespace sorting;
 
@@ -18,6 +19,7 @@ static const bool BINARY_SEARCH = false;
 static const bool NODE_TREE = false;
 static const bool HEAP_SORT = false;
 static const bool QUICK_SORT = false;
+static const bool FIND_ROUTES = false;
 
 template<typename V>
 void printArray(const V& v)
@@ -88,27 +90,57 @@ int main() {
 
     if (NODE_TREE)
     {
-        Node* root = new Node(3);
-        root->insert(root, 1);
-        root->insert(root, 2);
+        Node* root = new Node(6);
         root->insert(root, 4);
+        root->insert(root, 8);
+        root->insert(root, 2);
+        root->insert(root, 3);
+        root->insert(root, 1);
+        root->insert(root, 9);
+        root->insert(root, 7);
         root->insert(root, 5);
 
+        // Get max depth of tree
+        int depth = root->treeDepth(root);
+        std::cout << "Max depth of tree = " << depth << std::endl;
+
+        root->printTreeByLevelsUpDown(root, depth);
+        std::cout << "After deep print" << std::endl;
+
         // Depth First Traversals:
-        root->printInorder(root); // 1 2 3 4 5
-        std::cout << std::endl;
-        root->printPreorder(root); // 3 1 2 4 5
-        std::cout << std::endl;
-        root->printPostorder(root); // 2 1 5 4 3
+        std::cout << "Depth First Traversal Inorder: ";
+        root->printInorder(root); // 1 2 3 4 5 6 7 8 9
         std::cout << std::endl;
 
-        // TODO: delete certain node
+        std::cout << "Depth First Traversal Preorder: ";
+        root->printPreorder(root); // 6 4 2 1 3 5 8 7 9
+        std::cout << std::endl;
+
+        std::cout << "Depth First Traversal Postorder: ";
+        root->printPostorder(root); // 1 3 2 5 4 7 9 8 6
+        std::cout << std::endl;
+
+        // Find branch with max / min summ of nodes.
+        std::multimap<int, std::vector<int>> branches{};
+        std::vector<int> current_vector{};
+
+        root->findDeeps(root, branches, current_vector);
+        for (const auto& branch : branches)
+        {
+            std::cout << "Branch deep: " << branch.first << ". Children: ";
+            for (const auto& node : branch.second)
+            {
+                std::cout << node << " ";
+            }
+            std::cout << std::endl;
+        }
+
         std::cout << "Try to delete Node 42:" << std::endl;
         root = root->deleteCertain(root, 42); // Node 42 not found.
 
         // Depth First Traversals:
         std::cout << "Control traversal: ";
-        root->printInorder(root); //
+        root->printInorder(root); // 1 2 3 4 5 6 7 8 9
         std::cout << std::endl;
 
         std::cout << "Try to delete Node 2:" << std::endl;
@@ -116,11 +148,11 @@ int main() {
 
         // Depth First Traversals:
         std::cout << "Control traversal after Deleting Node: ";
-        root->printInorder(root); // 1 2 3 4 5
+        root->printInorder(root); // 1 4 5 6 7 8 9
         std::cout << std::endl;
 
         std::cout << "Deleting Tree: ";
-        root = root->deleteTree(root);
+        root = root->deleteTree(root); // 1 5 4 7 9 8 6
         std::cout << std::endl;
 
         // Depth First Traversals:
@@ -162,6 +194,36 @@ int main() {
 
         std::cout << "Array sorted by quick sort: " << std::endl;
         printArray(v);
+    }
+
+    if (FIND_ROUTES)
+    {
+        // Need to find number of routes from A to G
+        // Considering i-th point of route getting from:  F(i) = F(i - 3) + F(i - 2) + F(i - 1)
+        Routes routes;
+
+        // Recursive solution
+        /*
+        for (int i = 1; i < 37; i++)
+        {
+            std::cout << "For i == " << i << ", number of routes == " << routes.GetRoutesRecursively(i) << std::endl;
+        }
+
+         // For i == 37, number of routes == 2082876103
+         // For i == 38, number of routes == -463960867
+         // For i == 39, number of routes == -1543615208
+        */
+
+        // Iterative solution
+        for (int i = 1; i < 40; i++)
+        {
+            std::cout << "For i == " << i << ", number of routes == " << routes.GetRoutesIterative(i) << std::endl;
+        }
+
+        //  For i == 37, number of routes == 2082876103
+        //  For i == 38, number of routes == -463960867
+        //  For i == 39, number of routes == -1543615208
+
     }
     std::cout << "Hello World!" << std::endl;
     return 0;

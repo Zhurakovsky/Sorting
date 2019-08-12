@@ -107,8 +107,6 @@ private:
             }
         }
     }
-
-
 };
 } // namespace sorting
 

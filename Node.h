@@ -6,6 +6,10 @@
 #define SORTING_NODE_H
 
 #include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <numeric>
 
 namespace sorting {
 class Node
@@ -86,7 +90,7 @@ public:
         std::cout << node->data << " ";
     }
 
-    Node * deleteTree(Node* node)
+    Node* deleteTree(Node* node)
     {
         if (!node)
         {
@@ -144,6 +148,59 @@ public:
             }
         }
         return node;
+    }
+
+    int treeDepth(Node* node)
+    {
+        if (!node) return 0;
+
+        return (std::max(treeDepth(node->left), treeDepth(node->right)) + 1);
+    }
+
+    void printTreeByLevelsUpDown(Node* node, int depth)
+    {
+        if (!node) return;
+        int curr_depth = 0;
+
+        for (int i = 1; i <= depth; i++)
+        {
+            if (curr_depth < depth) {
+                innerPrintTreeByLevelsUpDown(node, i, curr_depth);
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    void innerPrintTreeByLevelsUpDown(Node* node, int depth, int curr_depth)
+    {
+        if (!node) return;
+        curr_depth += 1;
+        if (curr_depth == depth)
+        {
+            std::cout << node->data << " ";
+        }
+
+        if (depth > curr_depth)
+        {
+            innerPrintTreeByLevelsUpDown(node->left, depth, curr_depth);
+            innerPrintTreeByLevelsUpDown(node->right, depth, curr_depth);
+        }
+    }
+
+    void findDeeps(Node* node, std::multimap<int, std::vector<int>>& branches, std::vector<int> current_vector)
+    {
+        if (!node) return;
+
+        current_vector.emplace_back(node->data);
+        if (!node->left && !node->right)
+        {
+            int sum = std::accumulate(current_vector.begin(), current_vector.end(), 0);
+            branches.insert(std::pair<int, std::vector<int>>{sum, current_vector});
+            return;
+        }
+
+        findDeeps(node->left, branches, current_vector);
+        findDeeps(node->right, branches, current_vector);
     }
 };
 
