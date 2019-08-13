@@ -10,6 +10,8 @@
 #include "Heap.h"
 #include "QuickSort.h"
 #include "Routes.h"
+#include "GrowingSequence.h"
+#include "RadixSort.h"
 
 using namespace sorting;
 
@@ -20,6 +22,9 @@ static const bool NODE_TREE = false;
 static const bool HEAP_SORT = false;
 static const bool QUICK_SORT = false;
 static const bool FIND_ROUTES = false;
+static const bool GROWING_SEQUENCES = false;
+static const bool RADIX_SORT = false;
+
 
 template<typename V>
 void printArray(const V& v)
@@ -224,6 +229,30 @@ int main() {
         //  For i == 38, number of routes == -463960867
         //  For i == 39, number of routes == -1543615208
 
+    }
+
+    if (GROWING_SEQUENCES)
+    {
+        std::vector<int> v = *(RandomGenerator<int>()(20));
+        std::cout << "Growing sequence array: " << std::endl;
+        printArray(v);
+
+        GrowingSequence gs;
+        int longest_path = gs.FindLongestGrowingPath(v, 17);
+        std::cout << "Longest path == " << longest_path << std::endl;
+    }
+
+    if (RADIX_SORT)
+    {
+        std::vector<int> v = *(RandomGenerator<int>()(20));
+        std::cout << "Before Radix Sort array: " << std::endl;
+        printArray(v);
+
+        RadixSort rs;
+        rs.SortLsd(v);
+
+        std::cout << "After Radix Sort array: " << std::endl;
+        printArray(v);
     }
     std::cout << "Hello World!" << std::endl;
     return 0;
